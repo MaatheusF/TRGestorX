@@ -18,13 +18,14 @@ function BuscaChamadosFunc($BuscarSTR){
     or ccha_fila ilike $1
     or ccha_titulo ilike $1
     or ccha_status ilike $1
-    or ccha_data ilike $1
+    or ccha_data = $3
     or ccha_ticket ilike $1
     or ccha_prioridade ilike $1
     or cc.cli_nome ilike $1
-    or ccha_tarefa_cod = $2";
+    or ccha_tarefa_cod = $2
+    ORDER BY ccha_data_cadastro asc";
 
-    $pg_result_buscar = pg_query_params($cconn, $pg_query_buscar, array('%'.$BuscarSTR.'%',null));
+    $pg_result_buscar = pg_query_params($cconn, $pg_query_buscar, array('%'.$BuscarSTR.'%',null,null));
 
     while ($result = pg_fetch_assoc($pg_result_buscar)) {
 
@@ -75,14 +76,13 @@ function BuscaChamadosFunc($BuscarSTR){
                 <td>'.$result["ccha_ticket"].'</td>
                 <td>'.$result["ccha_titulo"].'</td>
                 <td>'.$result["ccha_fila"].'</td>
-                <td>'.$result["ccha_tipo"].'</td>
+                <!--<td>'.$result["ccha_tipo"].'</td>--!>
                 <td class="'.$cor_status.' '.$cor_fonte.'">'.$result["ccha_status"].'</td>
                 <td>'.$result["ccha_tarefa_cod"].'</td>
                 <td>Não Imp</td>
                 <td></td>
               </tr>';
     }
-
     $_SESSION['BuscaChamadosFunc'] = $result_chamados;
     header('Location: ../chamados.php');
 }

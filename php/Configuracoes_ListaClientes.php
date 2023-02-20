@@ -62,7 +62,7 @@ function SalvaClientes($clientes){
 
     #Grava os Registros Novos
     foreach ($clientes as $valor) {
-        $pg_query_insert = "INSERT INTO public.acg_associa_cliente_gestor(codigo, acg_cli_cliente_codigo, acg_usua_codigo_gestor)
+        $pg_query_insert = "INSERT INTO public.acg_associa_cliente_gestor(acg_codigo, acg_cli_cliente_codigo, acg_usua_codigo_gestor)
         VALUES(0,".$valor.",".$user_id.");
         ";
         pg_query($cconn, $pg_query_insert);

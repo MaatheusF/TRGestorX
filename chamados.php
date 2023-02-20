@@ -87,10 +87,12 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                             <h5 id="novo-chamado-titulo">Criar novo Chamado</h5>
 
                             <!-- Alerta de Salvamento --> <!-- Controlado pelo JS -->
+                            <!--
                                 <div id="savelist-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
                                     Ocorreu um erro ao Salvar o Chamado!
                                     <button id="savelist-button" type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
+                            -->
 
                             <!-- Formulario -->
                             <form method="post" action="./php/Chamados_InsereNovoChamado.php" target="_self">
@@ -108,7 +110,7 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                                     </div>
                                     <div class="col">
                                         <div class="form-floating mb-3">
-                                            <input type="date" class="form-control shadow-none select-font form-border" id="select-data" placeholder="Dia/Mes/Ano" name="post-datachamado">
+                                            <input type="date" required class="form-control shadow-none select-font form-border" id="select-data" placeholder="Dia/Mes/Ano" name="post-datachamado">
                                             <label for="select-data" style="font-size: 13px;">Data do Chamado</label>
                                         </div>
                                     </div>
@@ -126,7 +128,7 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control shadow-none select-font form-border" id="select-ticket" placeholder="Chamado" name="post-ticket">
+                                            <input type="text" required class="form-control shadow-none select-font form-border" id="select-ticket" placeholder="Chamado" name="post-ticket">
                                             <label for="select-ticket" style="font-size: 13px;">Ticket</label>
                                         </div>
                                     </div>
@@ -148,7 +150,7 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                                     <div class="col">
                                         <div class="form-floating">
                                             <select class="form-select form-outline form-select-sm shadow-none select-font form-border" id="select-fila" name="post-fila">
-                                              <option value="Em Atendimento">Em Atendimento</option>
+                                              <option value="Em Atendimento">Atendimento</option>
                                               <option value="Analise">Analise</option>
                                               <option value="Projeto">Projeto</option>
                                               <option value="Infraestrutura">Infraestrutura</option>
@@ -230,7 +232,7 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                         <th scope="col" class="cabeçalho-item">Ticket</th>
                         <th scope="col" class="cabeçalho-item">Titulo</th>
                         <th scope="col" class="cabeçalho-item">Fila</th>
-                        <th scope="col" class="cabeçalho-item">Tipo</th>
+                        <!--<th scope="col" class="cabeçalho-item">Tipo</th>-->
                         <th scope="col" class="cabeçalho-item">Status</th>
                         <th scope="col" class="cabeçalho-item">Tarefa Cód</th>
                         <th scope="col" class="cabeçalho-item">Tarefa Stats</th>
