@@ -65,6 +65,8 @@ include("./php/Chamados_ListaChamados.php");
 
             <!-- Cabeçalho do Filtro -->
             <div id="filtro-box">
+
+                <!-- Buscar Input -->
                 <div id="filtro-box-esqueda">
                     <form class="input-group" id="btn-buscar" method="post" target="_self" action="./php/Chamados_BuscaChamados.php">
                         <input type="text" class="form-control form-control-sm" placeholder="Buscar..." value="" id="input-busca" name="input-busca" aria-label="Recipient's username" aria-describedby="button-addon2">
