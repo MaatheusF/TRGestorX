@@ -1,4 +1,5 @@
 <?php 
+//OI
 session_start();
 //Verifica o Status Manutenção
 include("./php/manutencao_verificador.php");
