@@ -17,7 +17,7 @@ function BuscaClientes(){
     $user_id = $_COOKIE['user_account_id'];         #Busca o ID do Usuario nos Cookies
 
 
-    $pg_query_listaclientes = "select cc.cli_nome,cc.codigo from cli_clientes cc";
+    $pg_query_listaclientes = "select cc.cli_nome,cc.cli_codigo from cli_clientes cc";
 
     //Busca os dados no banco
     $pg_result_listaclientes= pg_query($cconn, $pg_query_listaclientes);
@@ -25,7 +25,7 @@ function BuscaClientes(){
         
         
         //Verifica se está Marcado
-        $pg_query_verificaMarcado = pg_query($cconn,"select acg_usua_codigo_gestor from acg_associa_cliente_gestor aacg where acg_usua_codigo_gestor = $user_id and acg_cli_cliente_codigo = ".$result['codigo']."");
+        $pg_query_verificaMarcado = pg_query($cconn,"select acg_usua_codigo_gestor from acg_associa_cliente_gestor aacg where acg_usua_codigo_gestor = $user_id and acg_cli_cliente_codigo = ".$result['cli_codigo']."");
         $pg_result_verificaMarcado = pg_fetch_assoc($pg_query_verificaMarcado);
         
         //print_r($$pg_result_verificaMarcado['acg_usua_codigo_gestor']);
@@ -39,7 +39,7 @@ function BuscaClientes(){
         //Impreme os Clientes
         echo '<div class="col-4">
                 <div class="form-check cliente-checkbox form-check">
-                    <input class="form-check-input" type="checkbox" name="'.$result['cli_nome'].'" value="'.$result['codigo'].'" id="flexCheckDefault" '.$Check.'>
+                    <input class="form-check-input" type="checkbox" name="'.$result['cli_nome'].'" value="'.$result['cli_codigo'].'" id="flexCheckDefault" '.$Check.'>
                     <label class="form-check-label" for="flexCheckDefault">
                         '.$result['cli_nome'].'
                     </label>
@@ -62,7 +62,7 @@ function SalvaClientes($clientes){
 
     #Grava os Registros Novos
     foreach ($clientes as $valor) {
-        $pg_query_insert = "INSERT INTO public.acg_associa_cliente_gestor(codigo, acg_cli_cliente_codigo, acg_usua_codigo_gestor)
+        $pg_query_insert = "INSERT INTO public.acg_associa_cliente_gestor(acg_codigo, acg_cli_cliente_codigo, acg_usua_codigo_gestor)
         VALUES(0,".$valor.",".$user_id.");
         ";
         pg_query($cconn, $pg_query_insert);

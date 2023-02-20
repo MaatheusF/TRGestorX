@@ -8,7 +8,8 @@ function BuscaTodosChamados(){
     $user_id = $_COOKIE['user_account_id'];         #Busca o ID do Usuario nos Cookies
 
     $pg_query_chamados = "SELECT * FROM ccha_cliente_chamado ccc
-    JOIN cli_clientes cc ON cc.codigo = ccha_cliente_id";
+    JOIN cli_clientes cc ON cc.cli_codigo = ccha_cliente_id
+    ORDER BY ccha_data_cadastro asc";
 
     $pg_result_chamados = pg_query($cconn, $pg_query_chamados);
 
@@ -21,20 +22,28 @@ function BuscaTodosChamados(){
 
         //Seletor de Cor do Status
         switch($result["ccha_status"]){
+            case "Novo":
+                $cor_status = "bg-novo";
+                $cor_fonte = "fonte-white";
+                break;
             case "Em Analise":
+                $cor_status = "bg-emanalise";
+                $cor_fonte = "fonte-white";
+                break;
+            case "Pendente":
                 $cor_status = "bg-danger";
                 $cor_fonte = "fonte-white";
                 break;
             case "Aguardando ATT":
-                $cor_status = "bg-warning";
-                $cor_fonte = "fonte-black";
+                $cor_status = "bg-aguardandoatt";
+                $cor_fonte = "fonte-white";
                 break;
             case "Aguardando Cliente":
-                $cor_status = "bg-primary";
+                $cor_status = "bg-aguardandocliente";
                 $cor_fonte = "fonte-white";
                 break;
             case "Concluido":
-                $cor_status = "bg-light";
+                $cor_status = "bg-concluido";
                 $cor_fonte = "fonte-black";
                 break;
         }
@@ -52,7 +61,7 @@ function BuscaTodosChamados(){
                 <td>'.$result["ccha_ticket"].'</td>
                 <td>'.$result["ccha_titulo"].'</td>
                 <td>'.$result["ccha_fila"].'</td>
-                <td>'.$result["ccha_tipo"].'</td>
+                <!--<td>'.$result["ccha_tipo"].'</td>-->
                 <td class="'.$cor_status.' '.$cor_fonte.'">'.$result["ccha_status"].'</td>
                 <td>'.$result["ccha_tarefa_cod"].'</td>
                 <td>Não Imp</td>

@@ -1,4 +1,4 @@
-
+/*https://mdbootstrap.com/docs/standard/forms/overview/*/
 
 /* ========== */
 .teste{
@@ -66,3 +66,63 @@ body{
     margin-right: 10px;
     align-self: center;
 }
+
+/*Novo Chamado*/
+#novo-chamado-titulo{
+    text-align: center;
+    font-size: 15px;
+    font-family:'Roboto', Roboto, sans-serif;
+    margin-bottom: 25px;
+}
+
+#select-prioridade{
+    font-size: 13px;
+    padding-left: 10px;
+}
+
+.select-font{
+    font-size: 13px;
+    padding-left: 10px;
+    font-family:'Roboto', Roboto, sans-serif;
+}
+
+.form-border{
+    border: 1px solid rgba(12, 96, 221, 0.726);
+}
+
+#modal-btn-box{
+    display: flex;
+    float: right;
+    margin-top: 15px;
+}
+
+
+
+/*Cores*/
+
+.bg-emanalise{
+    --bs-bg-opacity: 1;
+    background-color: rgb(255, 94, 0) !important;
+}
+
+.bg-aguardandoatt{
+    --bs-bg-opacity: 1;
+    background-color: rgb(255, 153, 0) !important;
+}
+
+.bg-concluido{
+    --bs-bg-opacity: 1;
+    background-color: rgba(235, 227, 227, 0.438) !important;
+}
+
+.bg-aguardandocliente{
+    --bs-bg-opacity: 1;
+    background-color: rgb(0, 132, 255) !important;
+}
+
+.bg-novo{
+    --bs-bg-opacity: 1;
+    background-color: rgb(134, 144, 145) !important;
+}
+
+
