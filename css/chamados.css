@@ -95,3 +95,34 @@ body{
     float: right;
     margin-top: 15px;
 }
+
+
+
+/*Cores*/
+
+.bg-emanalise{
+    --bs-bg-opacity: 1;
+    background-color: rgb(255, 94, 0) !important;
+}
+
+.bg-aguardandoatt{
+    --bs-bg-opacity: 1;
+    background-color: rgb(255, 153, 0) !important;
+}
+
+.bg-concluido{
+    --bs-bg-opacity: 1;
+    background-color: rgba(235, 227, 227, 0.438) !important;
+}
+
+.bg-aguardandocliente{
+    --bs-bg-opacity: 1;
+    background-color: rgb(0, 132, 255) !important;
+}
+
+.bg-novo{
+    --bs-bg-opacity: 1;
+    background-color: rgb(134, 144, 145) !important;
+}
+
+

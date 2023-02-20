@@ -13,7 +13,7 @@ function BuscaChamadosFunc($BuscarSTR){
 
     $pg_query_buscar = "
     select * from ccha_cliente_chamado ccc
-    join cli_clientes cc on cc.codigo = ccha_cliente_id
+    join cli_clientes cc on cc.cli_codigo = ccha_cliente_id
     where ccha_titulo ilike $1
     or ccha_fila ilike $1
     or ccha_titulo ilike $1
@@ -36,20 +36,28 @@ function BuscaChamadosFunc($BuscarSTR){
 
         //Seletor de Cor do Status
         switch($result["ccha_status"]){
+            case "Novo":
+                $cor_status = "bg-novo";
+                $cor_fonte = "fonte-white";
+                break;
             case "Em Analise":
+                $cor_status = "bg-emanalise";
+                $cor_fonte = "fonte-white";
+                break;
+            case "Pendente":
                 $cor_status = "bg-danger";
                 $cor_fonte = "fonte-white";
                 break;
             case "Aguardando ATT":
-                $cor_status = "bg-warning";
-                $cor_fonte = "fonte-black";
+                $cor_status = "bg-aguardandoatt";
+                $cor_fonte = "fonte-white";
                 break;
             case "Aguardando Cliente":
-                $cor_status = "bg-primary";
+                $cor_status = "bg-aguardandocliente";
                 $cor_fonte = "fonte-white";
                 break;
             case "Concluido":
-                $cor_status = "bg-light";
+                $cor_status = "bg-concluido";
                 $cor_fonte = "fonte-black";
                 break;
         }
