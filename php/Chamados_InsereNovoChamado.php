@@ -1,4 +1,7 @@
 <?php
+# Responsavel por Receber os dados inseridos na Tela de Chamados, usando a opção de Criar um novo Chamado
+# Recebe os dados, e insere no Banco de Dados
+
 //Recebe os dados do Cadastro de Chamados
 include('../bin/System/db_config.php');
 $post_prioridade    = $_POST['post-prioridade'];
@@ -14,6 +17,7 @@ $post_observacao    = $_POST['post-observacao'];
 
 $user_id = $_COOKIE['user_account_id']; #Busca o ID do Usuario nos Cookies
 
+//Altera o valor da Variavel
 if($post_tarefa == null){
     $post_tarefa = null;
 }
@@ -42,10 +46,11 @@ function BuscaChamadosDuplicados(){
 
 include('../bin/System/db_config.php');
 
+#Insere o Chamado
 $SQL_Insere_Chamado = pg_query_params($cconn,"INSERT INTO public.ccha_cliente_chamado
-(ccha_titulo, ccha_data, ccha_cliente_id, ccha_fila, ccha_tipo, ccha_status, ccha_tarefa_cod, ccha_usua_proprietario, ccha_ticket, ccha_prioridade)
+(ccha_titulo, ccha_data, ccha_cliente_id, ccha_fila, ccha_tipo, ccha_status, ccha_tarefa_cod, ccha_usua_proprietario, ccha_ticket, ccha_prioridade, ccha_observacao)
 VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);", 
-array($post_titulo,$post_datachamado, $post_cliente,$post_fila,$post_tipo,$post_status,$post_tarefa,$user_id,$post_ticket,$post_prioridade));
+array($post_titulo,$post_datachamado, $post_cliente,$post_fila,$post_tipo,$post_status,$post_tarefa,$user_id,$post_ticket,$post_prioridade,$post_observacao));
 
 //pg_query($cconn, $SQL_Insere_Chamado);
 

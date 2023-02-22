@@ -1,7 +1,7 @@
 <?php 
 include("./php/login-validador.php");
 include("./php/Chamados_ListaChamados.php");
-include("./php/Chamados_BuscaDadosNovoChamado.php");
+include("./php/Chamados_BuscaDadosChamado.php");
 ?>
 
 <html>
@@ -61,6 +61,37 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                 //Limpa o alerta de erro ao Salvar um chamado, quando clicar para fechar o modal
                 var alert = document.getElementById("savelist-alert");
                 alert.style.display = 'none';
+            }
+
+            //Cria um Modal para editar os Chamados
+            function CriaModalEditarChamado($CodigoChamado){
+
+                //Deleta o conteudo do Modal
+                var modal_body = document.getElementById('modal-editchamado-corpo');
+                modal_body.innerHTML = '';
+
+                //Cria um Iframe e envia o codigo do Chamado
+                $(document).ready(function(){
+                    var modal_body = $('#modal-editchamado-corpo');
+                    modal_body.append('<iframe onload="ControleModal()" id="edit-iframe" src="./php/Chamados_ModalEditarChamado.php?CodigoChamado=' + $CodigoChamado + '" style="width: 100%;height: 500px"></iframe>');
+                });
+            }
+
+            //Controla o Modal Editar chamado dentro do Iframe
+            function ControleModal(){
+                // Função chamada pelo Evento OnLoad colocado no Iframe
+                // Busca o document do Iframe
+                // Verifica se o Botão contino no Iframe foi clicado
+                // Se clicado fecha o Modal
+
+                setTimeout(1000);
+                var iframe = document.getElementById("edit-iframe").contentWindow.document; //Busca o Documento do Iframe
+                var btn = iframe.getElementById("salvar-btn");                              //Busca o Botão Dentro do Iframe
+                btn.addEventListener("click", function (e) {                                //Verifica se o Botão foi Clicado
+                    jQuery('#modal-editar-chamado').modal('hide');                          //Fecha o Modal na pagina atual
+                    setTimeout(500);
+                    window.location.reload(false);
+                });
             }
 
         </script>
@@ -192,7 +223,7 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                                 </div>
                                 <div id="modal-btn-box">
                                     <button type="button" class="btn btn-outline-primary btn-md" data-bs-dismiss="modal" style="width: 120px; margin-right: 30px;" onclick="LimpaAlertaSalvamentoChamado()">Fechar</button>
-                                    <button type="submit" class="btn btn-primary btn-md" style="width: 120px;">Finalizar</button>
+                                    <button type="submit" class="btn btn-primary btn-md" style="width: 120px;background-color: #8117c9;">Finalizar</button>
                                 </div>
                             </form>
                         </div>
@@ -201,7 +232,20 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
             </div>
 
 
-
+            <!-- Editar Chamado -->
+            <!-- Modal -->           
+            <div class="modal fade" id="modal-editar-chamado" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modal-edit-chamado" aria-hidden="true">
+                <div class="modal-dialog modal-xl" style="width: 1100px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modal-editchamado-corpo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
 
 
 
@@ -232,11 +276,11 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                         <th scope="col" class="cabeçalho-item">Ticket</th>
                         <th scope="col" class="cabeçalho-item">Titulo</th>
                         <th scope="col" class="cabeçalho-item">Fila</th>
-                        <!--<th scope="col" class="cabeçalho-item">Tipo</th>-->
+                        <th scope="col" class="cabeçalho-item">Tipo</th>
                         <th scope="col" class="cabeçalho-item">Status</th>
                         <th scope="col" class="cabeçalho-item">Tarefa Cód</th>
                         <th scope="col" class="cabeçalho-item">Tarefa Stats</th>
-                        <th scope="col" class="cabeçalho-item">Ações</th>
+                        <th scope="col" class="cabeçalho-item" style="text-align: center;">Ações</th>
                     </tr>
                 </thread>
 
@@ -269,8 +313,14 @@ include("./php/Chamados_BuscaDadosNovoChamado.php");
                         <td>Aguardando ATT</td>
                         <td>355425</td>
                         <td>Aguardando Informação</td>
-                        <td></td>
-                    </tr>-->
+                        <td style="width: 110px;">
+                            <div class="td-icon-bandeja">
+                                <button class="td-icon-btn"><i class="bi bi-eye-fill td-icon"></i></button>
+                                <button class="td-icon-btn"><i class="bi bi-pencil-square td-icon"></i></button>
+                                <button class="td-icon-btn"><i class="bi bi-box-arrow-right td-icon"></i></button>
+                            </div>
+                        </td>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
