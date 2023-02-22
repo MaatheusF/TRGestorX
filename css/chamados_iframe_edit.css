@@ -1,0 +1,9 @@
+#modal-btn-box{
+    display: flex;
+    float: right;
+    margin-top: 15px;
+}
+
+#post-SwitchAlerta:checked, #post-SwitchBloquear:checked{
+    background-color: #8117C9 !important;
+}

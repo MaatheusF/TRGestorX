@@ -63,7 +63,7 @@ include("./php/manutencao_verificador.php");
                     </div>
 
                     <div class="row" style="margin-top: 10px;">
-                        <button class="btn btn-danger btn-lg" type="submit" value="login">Entrar</button>
+                        <button class="btn btn-danger btn-lg" type="submit" value="login" style="color: White;">Entrar</button>
                     </div>
                 </form>
             </div>

@@ -14,8 +14,9 @@ include("./php/Configuracoes_ListaClientes.php");
 
     </head>
 
+    <!-- NavBar -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fifth navbar example">
+        <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Fifth navbar example">
             <div class="container-fluid">
                 <a class="navbar-brand" id="header-title" href="#">GestorX</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,10 +27,13 @@ include("./php/Configuracoes_ListaClientes.php");
                 <div class="collapse navbar-collapse" id="navbarsExample05">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="./dashboard.php">Dashboard</a>
+                            <a class="nav-link active" aria-current="page" href="./dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tarefas</a>
+                            <a class="nav-link" href="./tarefas.php">Tarefas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./chamados.php">Chamados</a>
                         </li>
                     </ul>
 
@@ -37,7 +41,7 @@ include("./php/Configuracoes_ListaClientes.php");
                     <div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">Configurações</a>
+                                <a class="nav-link" href="./configuracoes.php">Configurações</a>
                             </li>
                         </ul>
                     </div>

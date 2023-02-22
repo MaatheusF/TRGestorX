@@ -22,7 +22,7 @@ border: 1px solid red;
 }
 .btn-flutu-icon{
     font-size: 45px;
-    color: #383FEF;
+    color: #1f06ac;
 }
 
 
@@ -59,6 +59,10 @@ body{
     height: 100%;
     display: flex;
     float: right;
+}
+
+#button-filtro-buscar{
+    background-color: #1f06ac !important;
 }
 
 #btn-buscar{
@@ -125,4 +129,16 @@ body{
     background-color: rgb(134, 144, 145) !important;
 }
 
+.td-icon{
+    color:#1f06ac;
+    font-size: 15px;
+}
 
+.td-icon-btn{
+    background-color: transparent;
+    border: none;
+}
+
+.td-icon-btn:hover , .td-icon-btn:active, .td-icon-btn:visited {
+    border: none;
+}
