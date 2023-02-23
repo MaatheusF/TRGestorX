@@ -5,15 +5,15 @@ include("./php/login-validador.php");
 
 <html>
     <head>
+        <!-- https://www.youtube.com/watch?v=m05-kE_tSB8&ab_channel=JS -->
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-        <script src="./js/graficos/InstanciaGrafico_TarefasPorTipo.js"></script>
-        <script src="./js/graficos/InstanciaGrafico_DefeitoStatus.js"></script>
-        <script src="./js/graficos/InstanciaGrafico_ProjetosStatus.js"></script>
+        <script src="./js/Dashboard/Graficos/InstanciaGrafico_DefeitoStatus.js"></script>
+        <script src="./js/Dashboard/Graficos/InstanciaGrafico_ChamadosAbertos.js"></script>
         <link href="css/dashboard.css" rel="stylesheet">
         <link href="css/topbar.css" rel="stylesheet">
-        <title>GestorX - Main Page</title>
+        <title>GestorX - DashBoard</title>
     </head>
 
     <!-- NavBar -->
@@ -62,25 +62,15 @@ include("./php/login-validador.php");
            
                 <ul class="nav nav-pills flex-column mb-auto">
 
-                    <!-- Menu Item Agenda-->
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-black" type="button" id="v-pills-agenda-menu" data-bs-toggle="pill" data-bs-target="#v-pills-menu-agenda-conteudo" type="button" role="tab" aria-controls="v-pills-menu-agenda-conteudo" aria-selected="false">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-                            Agenda
-                        </a>
-                    </li>
-
-                    <hr>
-
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                        <span style="margin-bottom: 20px;">Indicadores Redmine</span>
+                        <span style="margin-bottom: 20px;">Indicadores Chamados</span>
                     </h6>
 
                     <!-- Menu Item Tarefas Gerais-->
                     <li class="nav-item">
                         <a href="#" class="nav-link nav-link-black active" id="v-pills-tarefas-gerais-menu" data-bs-toggle="pill" data-bs-target="#v-pills-menu-tarefas-gerais-conteudo" type="button" role="tab" aria-controls="v-pills-menu-tarefas-gerais-conteudo" aria-selected="true">
                             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                            Tarefas Gerais
+                            Chamados Abertos
                         </a>
                     </li>
 
@@ -104,29 +94,34 @@ include("./php/login-validador.php");
                 </div>
 
 
-                <!-- Tarefas Gerais -->
+                <!-- Chamados Gerais -->
                 <div class="tab-pane fade show active conteudo-box" id="v-pills-menu-tarefas-gerais-conteudo" role="tabpanel" aria-labelledby="v-pills-tarefas-gerais-menu" tabindex="0">
                     
-                    <h6 class="px-3 mt-4 mb-1 text-muted text-uppercase" style="text-align: center;">Tarefas Totais</h6>
+                    <h6 class="px-3 mt-4 mb-1 text-muted text-uppercase" style="text-align: center;">Total de Chamados Abertos sob Gestão</h6>
                     <hr>
 
                     <!-- Graficos Container-->
+                    <!--
                     <div>
                         <div class="row TR-cliente-row">
                             <h6 style="text-align: center;margin-top: 5px;">Gsat</h6>
                             <div class="col-4 TR-grafico">
-                                <canvas id="pie-tarefas-totais"></canvas>
-                                <script>InstanciaGrafico_TarefasPorTipo('pie-tarefas-totais');</script>          
+                                <canvas id="pie-chamados-status"></canvas>
+                                <script>InstanciaGrafico_ChamadosAbertos('pie-chamados-status');</script>          
                             </div>
                             <div class="col-4 TR-grafico">
-                                <canvas id="pie-defeito-status"></canvas>
-                                <script>InstanciaGrafico_DefeitoStatus('pie-defeito-status');</script>    
+                                <canvas id="pie-chamados-fila"></canvas>
+                                <script></script>    
                             </div>
                             <div class="col-4 TR-grafico">
-                                <canvas id="pie-dev-status"></canvas>
-                                <script>InstanciaGrafico_ProjetosStatus('pie-dev-status');</script>    
+                                <canvas id="pie-chamados-tipo"></canvas>
+                                <script></script>    
                             </div>
                         </div>
+                    </div>-->
+                    <div class="row TR-cliente-row">
+                        <canvas id="pie-chamados-abertos"></canvas>
+                        <script>InstanciaGrafico_ChamadosAbertos('pie-chamados-abertos')</script>
                     </div>
                 </div>
             </div>

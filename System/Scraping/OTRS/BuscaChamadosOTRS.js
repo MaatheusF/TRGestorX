@@ -9,8 +9,9 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 var _OTRSLoginURL =             'https://suporte.chapeco-solucoes.com.br/otrs/index.pl'     //Pagina de Login do OTRS
-var _OTRSChamadosAbertosURL =   'https://suporte.chapeco-solucoes.com.br/otrs/index.pl?Action=AgentTicketSearch;Subaction=Search;StateType=Open;CustomerIDRaw=%5B056%5D%20-%20TJ'
+//var _OTRSChamadosAbertosURL =   'https://suporte.chapeco-solucoes.com.br/otrs/index.pl?Action=AgentTicketSearch;Subaction=Search;StateType=Open;CustomerIDRaw=%5B056%5D%20-%20TJ'
 var _OTRSLogoutURL =            'https://suporte.chapeco-solucoes.com.br/otrs/index.pl?Action=Logout;ChallengeToken='
+BuscaChamadosOTRS();
 
 async function BuscaChamadosOTRS(){
 
@@ -23,47 +24,20 @@ async function BuscaChamadosOTRS(){
     var __LoginRealizado = await Login();
     if(__LoginRealizado == true){
         console.log('Login Realizado com Sucesso!');
-        Logout();
+        var tese = await BuscaChamadosAbertos();
     }
 }
 
 async function BuscaChamadosAbertos(){
-
+    var _OTRSChamadosAbertosURL =   'https://suporte.chapeco-solucoes.com.br/otrs/index.pl?Action=AgentTicketSearch;Subaction=Search;StateType=Open;CustomerIDRaw=%5B056%5D%20-%20TJ';
     await page.goto(_OTRSChamadosAbertosURL, { waitUntil: 'networkidle0' });        //Navega para a Pagina do Cliente
     const content = await page.content();                                           //Pega o HTML da Pagina
     const $html = cheerio.load(content);                                            //Carrega o HTML
 
-    const _GridDeChamados = $html('.TableSmall');                                        //Elemento de Inicio do Grid de Tarefas
-    const _ChamadosAbertos = [];                                                    //Array que armazena os dados
+    dados = $html('#TicketID_55617').find('td:eq(1)').text();
 
-    _GridDeChamados.each(function(){
-        const _NovoArtigo = $html(this).find('[title=""]').text();        
-        /*const _NumeroOTRS = $html(this).find('.cf_36').text();
-        const _Idade = $html(this).find('.project').text();
-        const _Remetente = $html(this).find('.tracker').text();
-        const _Titulo = $html(this).find('.status').text();
-        const _Estado = $html(this).find('.subject').text();
-        const _Fila = $html(this).find('.updated_on').text();
-        const _CriadoEm = $html(this).find('.created_on').text();
-        const _AlteradoEm = $html(this).find('.cf_20').text();*/
-
-
-        //Armazena os dados no Array
-        _Tarefas.push({
-            _ID,
-            _Projeto,
-            _Tipo,
-            _Situacao,
-            _Titulo,
-            _OTRS,
-            _AlteradoEm,
-            _CriadoEm,
-            _WEB,
-            _Desktop
-        });
-    });
-    return _Tarefas;
-
+    //console.log(dados);
+    return dados;
 }
 
 async function Login(){
@@ -86,6 +60,10 @@ async function Logout(){
     ]);
     console.log("Logout Realizado com Sucesso");
 }
+
+
+
+
 
 module.exports = {
     BuscaChamadosOTRS: BuscaChamadosOTRS,

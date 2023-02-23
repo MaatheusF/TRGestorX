@@ -1,21 +1,23 @@
+V1.0.1
+
 #Alterações e Correções
-    #Alterado SQL para não buscar chamados Concluidos
-    #Alterado Cor do botão de 'Buscar' na tela de Chamados
-    #Corrigido Sombra no Logotipo 'GestorX' na tela de Configurações
-    #Alterado cor da tela de Inicio 'Index.php'
-    #Alterado cor do Cabeçalho das Paginas
+    - Alterado SQL para não buscar chamados Concluidos
+    - Alterado Cor do botão de 'Buscar' na tela de Chamados
+    - Corrigido Sombra no Logotipo 'GestorX' na tela de Configurações
+    - Alterado cor da tela de Inicio 'Index.php'
+    - Alterado cor do Cabeçalho das Paginas
 
 
 #Adições
-    #Adicionado novamente a coluna Tipo na tabela de Chamados
-    #Adicionado Botões de ações na tela de chamados {'Visualizar', 'Editar', 'Ir OTRS'}
-        #Adicionado Redirecionamento para a pagina do Chamado no OTRS ao clicar sobre o Botão
-        #Adicionado Aberturo do Modal para Editar um Chamado ao clicar sobre o Botão
-        #Botão Visualizar ainda está inativo, pois o Sistema não foi Desenvolvido
-    #Adicionado Modal para edição dos Chamados
-    #Adicionado Descrição de Uso nos Arquivos .PHP
+    - Adicionado novamente a coluna Tipo na tabela de Chamados
+    - Adicionado Botões de ações na tela de chamados {'Visualizar', 'Editar', 'Ir OTRS'}
+        - Adicionado Redirecionamento para a pagina do Chamado no OTRS ao clicar sobre o Botão
+        - Adicionado Aberturo do Modal para Editar um Chamado ao clicar sobre o Botão
+        - Botão Visualizar ainda está inativo, pois o Sistema não foi Desenvolvido
+    - Adicionado Modal para edição dos Chamados
+    - Adicionado Descrição de Uso nos Arquivos .PHP
 
 #Observações
-    #Adicionado Botão de Alerme no Modal de Edição de Chamados, porem ainda não Implementado
-    #Adicionado Botão de Bloquear no Modal de Edição de Chamados, porem ainda não Implementado
+    - Adicionado Botão de Alerme no Modal de Edição de Chamados, porem ainda não Implementado
+    - Adicionado Botão de Bloquear no Modal de Edição de Chamados, porem ainda não Implementado
 

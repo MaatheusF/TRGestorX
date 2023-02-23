@@ -1,0 +1,1344 @@
+
+<!DOCTYPE html>
+<html>
+<!--                                                                           -->
+<!--                      ((OTRS)) Community Edition                           -->
+<!--      Copyright (C) 2021 Centuran Consulting, https://centuran.com/        --><!--      Copyright (C) 2021-2022 Centuran Consulting, https://centuran.com/        -->
+<!--        OTRS: Copyright (C) 2001-2020 OTRS AG, https://otrs.com/           -->
+<!--        OTRS: Copyright (C) 2021-2022 Centuran Consulting, https://centuran.com/           -->
+<!--    GNU General Public License: https://www.gnu.org/licenses/gpl-3.0.txt   -->
+<!--                                                                           -->
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta id="viewport" name="viewport" content="">
+    <meta name="robots" content="noindex,nofollow" />
+    <script>
+        (function(doc, win) {
+            var viewport = doc.getElementById('viewport'),
+                isIFrame = (win.top.location.href !== win.location.href),
+                isPopup = (win.name.search(/^OTRSPopup_/) != -1);
+            try {
+              if (((!isIFrame && !isPopup) || (isIFrame && isPopup)) && (!localStorage.getItem("DesktopMode") || parseInt(localStorage.getItem("DesktopMode"), 10) <= 0)) {
+                  viewport.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+              }
+            }
+            catch (Exception) {}
+        }(document, window));
+    </script>
+    <link rel="search" type="application/opensearchdescription+xml" title="((OTRS)) Community Edition (Ticket#)" href="/otrs/index.pl?Action=AgentTicketSearch;Subaction=OpenSearchDescriptionTicketNumber" />
+    <link rel="search" type="application/opensearchdescription+xml" title="((OTRS)) Community Edition (Texto Completo)" href="/otrs/index.pl?Action=AgentTicketSearch;Subaction=OpenSearchDescriptionFulltext" />
+    <link rel="search" type="application/opensearchdescription+xml" title="((OTRS)) Community Edition (FAQ#)" href="/otrs/index.pl?Action=AgentFAQSearch;Subaction=OpenSearchDescriptionFAQNumber" />
+    <link rel="search" type="application/opensearchdescription+xml" title="((OTRS)) Community Edition (FAQ-TextoCompleto)" href="/otrs/index.pl?Action=AgentFAQSearch;Subaction=OpenSearchDescriptionFulltext" />
+    <link rel="shortcut icon" href="/otrs-web/skins/Agent/default/img/icons/vendor.ico" type="image/ico" />
+    <link rel="apple-touch-icon" href="/otrs-web/skins/Agent/default/img/icons/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="/otrs-web/skins/Agent/default/css-cache/CommonCSS_6f51a79716cc3e10a01f74a501ba5de9.css" />
+    <link rel="stylesheet" type="text/css" href="/otrs-web/skins/Agent/ivory-slim/css-cache/CommonCSS_8e6407021cfb5198948144c455c4cefb.css" />
+
+    <link rel="stylesheet" type="text/css" href="/otrs-web/skins/Agent/default/css-cache/ModuleCSS_41ad13589defaa5ad1834d7e41bb1f36.css" />
+
+    <link rel="stylesheet" type="text/css" href="/otrs-web/skins/Agent/default/css/thirdparty/ui-theme/jquery-ui.css" />
+
+    <style type="text/css">
+        #Header #Logo {
+            background-image: url(/otrs-web/skins/Agent/default/img/logo_bg.png);
+            top: 10px;
+            right: 45px;
+            width: 220px;
+            height: 45px;
+        }
+    </style>
+
+
+    <link rel="stylesheet" type="text/css" href="/otrs-web/common/css/common.css" />
+
+    <link rel="stylesheet" type="text/css" href="/otrs-web/common/css/font-awesome.min.css" />
+
+    <script>
+      (function(doc, win) {
+          var isIFrame = (win.top.location.href !== win.location.href),
+              isPopup = (win.name.search(/^OTRSPopup_/) != -1);
+          try {
+            if (((!isIFrame && !isPopup) || (isIFrame && isPopup)) && (!localStorage.getItem("DesktopMode") || parseInt(localStorage.getItem("DesktopMode"), 10) <= 0)) {
+              var ResponsiveCSS;
+                ResponsiveCSS = doc.createElement("link");
+              ResponsiveCSS.setAttribute("rel", "stylesheet");
+              ResponsiveCSS.setAttribute("type", "text/css");
+              ResponsiveCSS.setAttribute("href", "/otrs-web/skins/Agent/default/css-cache/ResponsiveCSS_f340741a17dbb5ece0131f615cc90d5e.css");
+              doc.getElementsByTagName("head")[0].appendChild(ResponsiveCSS);
+              }
+          }
+          catch (Exception) {}
+      }(document, window));
+    </script>
+
+    <title>Procurar - Chamado - ((OTRS)) Community Edition</title>
+
+
+<script type="text/javascript">//<![CDATA[
+"use strict";
+
+var Core = Core || {};
+Core.App = Core.App || {};
+
+/**
+ * @function
+ *      Ignores an event. Implemented without jQuery because no external JavaScript is available yet.
+ * @return nothing
+ */
+function IgnoreEvent (Event) {
+    if (Event.preventDefault) {
+        Event.preventDefault();
+    }
+    Event.returnValue = false;
+    return false;
+}
+
+/**
+ * @function
+ *      This function blocks all click events on the page until it is
+ *      unblocked after all JavaScript was loaded. Implemented without
+ *      jQuery because no external JavaScript is available yet.
+ * @return nothing
+ */
+Core.App.BlockEvents = function() {
+    if (document.addEventListener) {
+        document.addEventListener('click', IgnoreEvent, false);
+    }
+    else {
+        document.attachEvent('onclick', IgnoreEvent);
+    }
+};
+
+/**
+ * @function
+ *      This function unblocks all click events on the page
+ *      after all JavaScript was loaded. Implemented without
+ *      jQuery because no external JavaScript is available yet.
+ * @return nothing
+ */
+Core.App.UnblockEvents = function() {
+    if (document.removeEventListener) {
+        document.removeEventListener('click', IgnoreEvent, false);
+    }
+    else {
+        document.detachEvent('onclick', IgnoreEvent);
+    }
+    // allow tests to wait for complete page load
+    Core.App.PageLoadComplete = true;
+};
+
+// Now block all click events on the page to make sure that
+// an agent does not click before all JavaScript was loaded,
+// as event listeners are not yet available, for example.
+Core.App.BlockEvents();
+//]]></script>
+
+
+</head>
+<body class="">
+    <a name="Top"></a>
+    <div id="AppWrapper">
+    
+    
+    
+    <div id="Header" class="ARIARoleBanner">
+        <div id="Logo"></div>
+        <ul id="ToolBar">
+            <li class="UserAvatar">
+                <a href="#">
+                
+                    <img src="//www.gravatar.com/avatar/3c53970ad8dc3dfb3154f2f6117100cd?s=100&d=mp" />
+                
+                </a>
+                <div>
+                    <span>Matheus Favero</span>
+                                    <a href="/otrs/index.pl?Action=AgentPreferences" title="Editar preferências pessoais">
+                        <i class="fa fa-cog"></i><strong>Preferências Pessoais</strong>
+                    </a>
+                                                    <a class="LogoutButton" id="LogoutButton" href="/otrs/index.pl?Action=Logout;ChallengeToken=0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe;" title="Sair (Você está logado como Matheus Favero)">
+                        <i class="fa fa-power-off"></i><strong>Sair</strong>
+                    </a>
+                                </div>
+            </li>
+            <li class="Responsible New"><a href="/otrs/index.pl?Action=AgentTicketResponsibleView;Filter=New" target="" accesskey="" title="Novos Chamados com Responsável: 1">Novos Chamados com Responsável <i class="icon-small fa fa-clock-o icon-show-reached"></i> <i class="icon-small fa fa-star icon-show-new"></i><i class="fa fa-user"></i> <span class="Counter">1</span> </a></li>
+            <li class="Responsible"><a href="/otrs/index.pl?Action=AgentTicketResponsibleView" target="" accesskey="r" title="Total de chamados com Responsável: 20 (r)">Total de chamados com Responsável <i class="icon-small fa fa-clock-o icon-show-reached"></i> <i class="icon-small fa fa-star icon-show-new"></i><i class="fa fa-user"></i> <span class="Counter">20</span> </a></li>
+            <li class="Locked"><a href="/otrs/index.pl?Action=AgentTicketLockedView" target="" accesskey="k" title="Total de Chamados Bloqueados: 10 (k)">Total de Chamados Bloqueados <i class="icon-small fa fa-clock-o icon-show-reached"></i> <i class="icon-small fa fa-star icon-show-new"></i><i class="fa fa-lock"></i> <span class="Counter">10</span> </a></li>
+
+        </ul>
+    </div>
+
+<div id="NavigationContainer">
+    <ul id="Navigation" class="Draggable ARIARoleNavigation" style="visibility: hidden;">
+        <li id="nav-Dashboard" class="">
+            <a href="/otrs/index.pl?Action=AgentDashboard" title="Painel (d)" accesskey="d" >Painel</a>
+        </li>
+        <li id="nav-Customers" class="">
+            <a href="/otrs/index.pl?Action=AgentCustomerInformationCenter" title="Clientes" accesskey="" >Clientes</a>
+            <ul id="nav-Customers-container">
+                <li id="nav-Customers-CustomerInformationCenter">
+                    <a href="/otrs/index.pl?Action=AgentCustomerInformationCenter" title="Pesquisa do Centro de Informações do Cliente. (c)" accesskey="c" onclick="window.setTimeout(function(){Core.Agent.CustomerInformationCenterSearch.OpenSearchDialog();}, 0); return false;">Centro de Informação do Cliente</a>
+                </li>
+                <li id="nav-Customers-CustomerUserInformationCenter">
+                    <a href="/otrs/index.pl?Action=AgentCustomerUserInformationCenter" title="Pesquisa do Centro de Informações do Usuário Cliente. (y)" accesskey="y" onclick="window.setTimeout(function(){Core.Agent.CustomerUserInformationCenterSearch.OpenSearchDialog();}, 0); return false;">Centro de Informações do Usuário Cliente</a>
+                </li>
+            </ul>
+        </li>
+        <li id="nav-Calendar" class="">
+            <a href="/otrs/index.pl?Action=AgentAppointmentCalendarOverview" title="Calendário" accesskey="" >Calendário</a>
+            <ul id="nav-Calendar-container">
+                <li id="nav-Calendar-CalendarOverview">
+                    <a href="/otrs/index.pl?Action=AgentAppointmentCalendarOverview" title="Página de visão geral de calendário de compromissos." accesskey="" >Visão geral de Calendário</a>
+                </li>
+                <li id="nav-Calendar-AgendaOverview">
+                    <a href="/otrs/index.pl?Action=AgentAppointmentAgendaOverview" title="Visão geral de todos os compromissos." accesskey="" >Visão geral da Agenda</a>
+                </li>
+                <li id="nav-Calendar-NewAppointment">
+                    <a href="/otrs/index.pl?Action=AgentAppointmentCalendarOverview;Subaction=AppointmentCreate" title="Criar novo compromisso." accesskey="" >Novo Compromisso</a>
+                </li>
+            </ul>
+        </li>
+        <li id="nav-Tickets" class=" Selected">
+            <a href="/otrs/index.pl?Action=AgentTicketQueue" title="Chamados (t)" accesskey="t" >Chamados</a>
+            <ul id="nav-Tickets-container">
+                <li id="nav-Tickets-Queueview">
+                    <a href="/otrs/index.pl?Action=AgentTicketQueue" title="Visão geral de todos os Chamados associados as Filas. (o)" accesskey="o" >Visão de Filas</a>
+                </li>
+                <li id="nav-Tickets-Statusview">
+                    <a href="/otrs/index.pl?Action=AgentTicketStatusView" title="Visão Geral de Todos os Chamados Abertos (v)" accesskey="v" >Visão de Estados</a>
+                </li>
+                <li id="nav-Tickets-Escalationview">
+                    <a href="/otrs/index.pl?Action=AgentTicketEscalationView" title="Visão Geral de Chamados Escalados. (e)" accesskey="e" >Visão de Escalação</a>
+                </li>
+                <li id="nav-Tickets-Newphoneticket">
+                    <a href="/otrs/index.pl?Action=AgentTicketPhone" title="Criar um novo ticket de telefonema (recebido). (n)" accesskey="n" >Novo chamado via fone</a>
+                </li>
+                <li id="nav-Tickets-Newemailticket">
+                    <a href="/otrs/index.pl?Action=AgentTicketEmail" title="Criar um novo ticket de e-mail e enviar (enviado). (m)" accesskey="m" >Novo chamado via e-mail</a>
+                </li>
+                <li id="nav-Tickets-Search">
+                    <a href="/otrs/index.pl?Action=AgentTicketSearch" title="Buscar Chamados. (s)" accesskey="s" onclick="window.setTimeout(function(){Core.Agent.Search.OpenSearchDialog('AgentTicketSearch');}, 0); return false;">Procurar</a>
+                </li>
+            </ul>
+        </li>
+        <li id="nav-FAQ" class="">
+            <a href="/otrs/index.pl?Action=AgentFAQExplorer" title="FAQ (f)" accesskey="f" >FAQ</a>
+            <ul id="nav-FAQ-container">
+                <li id="nav-FAQ-Explorer">
+                    <a href="/otrs/index.pl?Action=AgentFAQExplorer" title="Explorar a FAQ (x)" accesskey="x" >Explorar</a>
+                </li>
+                <li id="nav-FAQ-New">
+                    <a href="/otrs/index.pl?Action=AgentFAQAdd" title="Novo Artigo de FAQ. (b)" accesskey="b" >Nova</a>
+                </li>
+                <li id="nav-FAQ-Journal">
+                    <a href="/otrs/index.pl?Action=AgentFAQJournal" title="Jornal FAQ (j)" accesskey="j" >Jornal</a>
+                </li>
+                <li id="nav-FAQ-Search">
+                    <a href="/otrs/index.pl?Action=AgentFAQSearch" title="Pesquisar FAQ. (z)" accesskey="z" onclick="Core.Agent.Search.OpenSearchDialog('AgentFAQSearch'); if (event.stopPropagation) { event.stopPropagation(); } else { window.event.cancelBubble = true; } return false;">Procurar</a>
+                </li>
+            </ul>
+        </li>
+        <li id="nav-search">
+            <a class="Search ScreenXL ARIARoleSearch ARIAHasPopup" id="GlobalSearchNav" href="/otrs/index.pl?Action=AgentTicketSearch" title="Procurar">
+                <i class="fa fa-search"></i>
+            </a>
+            <a class="Search SmallerOrEqualScreenL ARIARoleSearch ARIAHasPopup" id="GlobalSearchNavResponsive" href="/otrs/index.pl?Action=AgentTicketSearch" title="Procurar">
+                Procurar
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- start Notify -->
+<div class="MessageBox Notice">
+    <span class="Icon"></span>
+    <p>
+        <a href="/otrs/index.pl?Action=AgentPreferences;Subaction=Group;Group=UserProfile" class="">
+            Selecione o fuso horário de sua preferência e confirme ao clicar no botão salvar.
+        </a>
+    </p>
+</div>
+<!-- end Notify -->
+
+<div class="OverviewBox ARIARoleMain Small">
+    <h1>Resultado da Pesquisa: </h1>
+
+    
+
+    <div class="OverviewControl" id="OverviewControl">
+        <div>
+            <div class="ControlRow">
+                <ul class="Tabs">
+                    <li>
+                        <a name="OverviewControl" id="TicketSearch" href="/otrs/index.pl?Action=AgentTicketSearch;Subaction=LoadProfile;Profile=last-search;TakeLastSearch=1&">Alterar as Opções de Busca (Última-Pesquisa)</a>
+                    </li>
+                </ul>
+
+
+                <ul class="ContextFunctions">
+
+
+                    <li class="ContextSettings">
+                        <a href="#" id="ShowContextSettingsDialog" title="Configurações">
+                            <i class="fa fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div id="ContextSettingsDialogContainer" class="Hidden">
+                    <form action="/otrs/index.pl" method="post" id="ContextSettingsDialogOverviewSmall" class="WidgetSettingsForm"><input type="hidden" name="ChallengeToken" value="0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe"/>
+                        <input type="hidden" name="Action" value="AgentPreferences"/>
+                        <input type="hidden" name="Subaction" value="Update"/>
+                        <input type="hidden" name="Group" value="TicketOverviewSmallPageShown"/>
+                        <input type="hidden" name="RedirectURL" value="Action=AgentTicketSearch;Filter=;View=;SortBy=Age;OrderBy=Down;Profile=last-search;TakeLastSearch=1;Subaction=Search;"/>
+                        <fieldset class="TableLike FixedLabelSmall">
+                            <label for="UserTicketOverviewSmallPageShown">Chamados por página:</label>
+                            <div class="Field">
+                                <select class="Modernize" id="UserTicketOverviewSmallPageShown" name="UserTicketOverviewSmallPageShown">
+  <option value="10">10</option>
+  <option value="15">15</option>
+  <option value="20">20</option>
+  <option value="25">25</option>
+  <option value="30">30</option>
+  <option value="35" selected="selected">35</option>
+</select>
+                            </div>
+                            <div class="Clear"></div>
+
+                            <input type="hidden" class="ColumnsEnabledJSON" value="[&quot;TicketNumber&quot;,&quot;Age&quot;,&quot;Sender&quot;,&quot;Title&quot;,&quot;State&quot;,&quot;Lock&quot;,&quot;Queue&quot;,&quot;CustomerCompanyName&quot;,&quot;Created&quot;,&quot;Changed&quot;]" />
+                            <input type="hidden" class="ColumnsAvailableJSON" value="[&quot;CustomerID&quot;,&quot;CustomerName&quot;,&quot;CustomerUserID&quot;,&quot;EscalationResponseTime&quot;,&quot;EscalationSolutionTime&quot;,&quot;EscalationTime&quot;,&quot;EscalationUpdateTime&quot;,&quot;Owner&quot;,&quot;PendingTime&quot;,&quot;Priority&quot;,&quot;Responsible&quot;,&quot;SLA&quot;,&quot;Service&quot;,&quot;Subject&quot;,&quot;Type&quot;]" />
+                            <input type="hidden" name="Group" value="TicketOverviewFilterSettings"/>
+                            <input type="hidden" name="FilterAction" value="AgentTicketSearch"/>
+                            <label class="DontPrint" for="UserFilterColumnsEnabled-AgentTicketSearch">Colunas Exibidas:</label>
+                            <div class="Field DontPrint LayoutGrid AllocationListContainer">
+                                <div class="Size1of2">
+                                    <ul class="Tablelike">
+                                        <li class="Header">Colunas Disponíveis</li>
+                                    </ul>
+                                    <div class="FilterInputContainer">
+                                        <input type="text" class="FilterAvailableFields" name="FilterAvailableFields" value="" title="Filtrar campos disponíveis" placeholder="Filtrar campos disponíveis..." />
+                                    </div>
+                                    <ul class="AllocationList Tablelike AvailableFields SettingsOverview" id="AvailableField-DashboardAgentTicketSearch"></ul>
+                                </div>
+                                <div class="Size1of2">
+                                    <ul class="Tablelike">
+                                        <li class="Header">Colunas Visíveis (arrastar e soltar p/ reordenar)</li>
+                                    </ul>
+                                    <ul class="AllocationList Tablelike AssignedFields OrderNumbers SettingsOverview" id="AssignedFields-DashboardAgentTicketSearch"></ul>
+                                </div>
+                            </div>
+                            <div class="Clear"></div>
+
+
+                        </fieldset>
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="ActionRow">
+                <div class="OverviewActions">
+                    <ul class="Actions">
+    <li id="BulkAction" class="AlwaysPresent Inactive "><a href="#">Massa</a></li>
+
+
+</ul>
+
+
+
+
+                    <ul class="OverviewZoom">
+                        <li class="Active">
+                            <a class="Small" name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=Small;TakeLastSearch=1;Subaction=Search;Profile=last-search;" title="Pequeno">
+                                S
+                            </a>
+                        </li>
+                        <li>
+                            <a class="Medium" name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=Medium;TakeLastSearch=1;Subaction=Search;Profile=last-search;" title="Médio">
+                                M
+                            </a>
+                        </li>
+                        <li>
+                            <a class="Large" name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=Preview;TakeLastSearch=1;Subaction=Search;Profile=last-search;" title="Grande">
+                                L
+                            </a>
+                        </li>
+                    </ul>
+                    <span class="Pagination">
+                        1-6 de 6
+                        
+                    </span>
+                    <div class="ClearLeft"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="OverviewBody" class="Overview TicketList">
+    <form action="/otrs/index.pl" method="post" enctype="multipart/form-data" name="matrix"><input type="hidden" name="ChallengeToken" value="0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe"/>
+        <input type="hidden" name="Action" value="AgentTicketBulk"/>
+        <input type="hidden" name="TicketID" value=""/>
+        <input type="hidden" name="LastColumnFilter" id="LastColumnFilter" value=""/>
+        <table class="TableSmall NoCellspacing">
+            <thead>
+                <tr>
+
+
+                    <th class="Checkbox">
+                        <input type="checkbox" class="Checkbox" title="Selecionar Todos" id="SelectAllTickets" autocomplete="off" />
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader " title="Prioridade">
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Priority;OrderBy=Down" title="Prioridade">
+                            <em class="PrintOnly">Prioridade</em>
+                        </a>
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader " title="Novo Artigo">
+                        <span title="Novo Artigo">
+                            <em class="PrintOnly">Novo Artigo</em>
+                        </span>
+                    </th>
+
+
+
+
+
+                    <th class="OverviewHeader TicketNumber">
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=TicketNumber;OrderBy=Down" title="Número Chamado">Ticket#</a>
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Age SortDescendingLarge">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Age;OrderBy=Up" title="Idade, Classificar Descendente">Idade</a>
+
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Sender">
+
+
+
+
+                        <span class="Gray" title="Remetente">Remetente</span>
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Title">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Title;OrderBy=Down" title="Titulo">Titulo</a>
+
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  State">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=State;OrderBy=Down" title="Estado">Estado</a>
+
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Lock">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Lock;OrderBy=Down" title="Bloquear">Bloquear</a>
+
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Queue">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Queue;OrderBy=Down" title="Fila">Fila</a>
+
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  CustomerCompanyName">
+
+
+
+
+                        <span class="Gray" title="CustomerCompanyName">Nome do Cliente</span>
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Created">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Created;OrderBy=Down" title="Criado">Criado</a>
+
+
+                    </th>
+
+
+
+
+                    <th class="OverviewHeader  Changed">
+
+
+
+                        <a name="OverviewControl" href="/otrs/index.pl?Action=AgentTicketSearch;Filter=;View=;Profile=last-search;TakeLastSearch=1;Subaction=Search;;SortBy=Changed;OrderBy=Down" title="Alterado">Alterado</a>
+
+
+                    </th>
+
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="TicketID_55617" class="MasterAction">
+
+
+                    <td class="Checkbox NonTextContent">
+                        <input class="Checkbox" type="checkbox" name="TicketID" title="Selecionar esse chamado" value="55617"  autocomplete="off" />
+                    </td>
+
+
+
+
+                    <td class="Flags" title="3 Normal">
+                        <div class="Flag Small" title="3 Normal">
+                            <span class="PriorityID-3" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>3 Normal</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+                    <td class="UnreadArticles" title="Artigo(s) Não Lido(s) Disponível(is)">
+                        <div class="UnreadArticles Small" title="Artigo(s) Não Lido(s) Disponível(is)">
+                            <span class="UnreadArticles Ordinary" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>Artigo(s) Não Lido(s) Disponível(is)</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+
+                    <td>
+                        <a href="/otrs/index.pl?Action=AgentTicketZoom;TicketID=55617" title="TJ apresentação recursos logísticos [Bárbara]" class="MasterActionLink">2023021750000168</a>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="5 d 22 h ">5 d 22 h </div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Bárbara">Bárbara</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="TJ apresentação recursos logísticos [Bárbara]">TJ apresentação recursos logísticos [Bárbara]</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Em atendimento">Em atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="desbloqueado">desbloqueado</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Atendimento">Atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Trafegus Sistemas">Trafegus Sistemas</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="17/02/2023 09:48 (America/Sao_Paulo)">17/02/2023 09:48 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="17/02/2023 11:33 (America/Sao_Paulo)">17/02/2023 11:33 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                </tr>
+
+                <tr id="TicketID_55218" class="MasterAction">
+
+
+                    <td class="Checkbox NonTextContent">
+                        <input class="Checkbox" type="checkbox" name="TicketID" title="Selecionar esse chamado" value="55218"  autocomplete="off" />
+                    </td>
+
+
+
+
+                    <td class="Flags" title="3 Normal">
+                        <div class="Flag Small" title="3 Normal">
+                            <span class="PriorityID-3" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>3 Normal</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+                    <td class="" title="">
+                    </td>
+
+
+
+
+
+                    <td>
+                        <a href="/otrs/index.pl?Action=AgentTicketZoom;TicketID=55218" title="PGR DESATIVADOS APARECENDO NO SISTEMA WEB TRAFEGUS" class="MasterActionLink">2023020850000354</a>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="14 d 15 h ">14 d 15 h </div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="LUCIANO ARAUJO COORDENADOR TJ GR">LUCIANO ARAUJO COORDENADOR TJ GR</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="PGR DESATIVADOS APARECENDO NO SISTEMA WEB TRAFEGUS">PGR DESATIVADOS APARECENDO NO SISTEMA WEB TRAFEGUS</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Em atendimento">Em atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="desbloqueado">desbloqueado</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Análise">Análise</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="-">-</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="08/02/2023 16:23 (America/Sao_Paulo)">08/02/2023 16:23 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="16/02/2023 08:28 (America/Sao_Paulo)">16/02/2023 08:28 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                </tr>
+
+                <tr id="TicketID_54138" class="MasterAction">
+
+
+                    <td class="Checkbox NonTextContent">
+                        <input class="Checkbox" type="checkbox" name="TicketID" title="Selecionar esse chamado" value="54138"  autocomplete="off" />
+                    </td>
+
+
+
+
+                    <td class="Flags" title="3 Normal">
+                        <div class="Flag Small" title="3 Normal">
+                            <span class="PriorityID-3" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>3 Normal</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+                    <td class="" title="">
+                    </td>
+
+
+
+
+
+                    <td>
+                        <a href="/otrs/index.pl?Action=AgentTicketZoom;TicketID=54138" title="INTEGRAÇÃO - sighra" class="MasterActionLink">2023011750000188</a>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="36 d 22 h ">36 d 22 h </div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Bárbara">Bárbara</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="INTEGRAÇÃO - sighra">INTEGRAÇÃO - sighra</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Em atendimento">Em atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="desbloqueado">desbloqueado</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Infraestrutura">Infraestrutura</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="-">-</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="17/01/2023 09:54 (America/Sao_Paulo)">17/01/2023 09:54 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="17/01/2023 16:24 (America/Sao_Paulo)">17/01/2023 16:24 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                </tr>
+
+                <tr id="TicketID_52778" class="MasterAction">
+
+
+                    <td class="Checkbox NonTextContent">
+                        <input class="Checkbox" type="checkbox" name="TicketID" title="Selecionar esse chamado" value="52778"  autocomplete="off" />
+                    </td>
+
+
+
+
+                    <td class="Flags" title="3 Normal">
+                        <div class="Flag Small" title="3 Normal">
+                            <span class="PriorityID-3" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>3 Normal</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+                    <td class="UnreadArticles" title="Artigo(s) Não Lido(s) Disponível(is)">
+                        <div class="UnreadArticles Small" title="Artigo(s) Não Lido(s) Disponível(is)">
+                            <span class="UnreadArticles Ordinary" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>Artigo(s) Não Lido(s) Disponível(is)</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+
+                    <td>
+                        <a href="/otrs/index.pl?Action=AgentTicketZoom;TicketID=52778" title="COLUNAS DA GRADE LOGISTICO COM PROBLEMAS PARA EXCLUIR" class="MasterActionLink">2022121250000347</a>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="72 d 16 h ">72 d 16 h </div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="LUCIANO ARAUJO COORDENADOR TJ GR">LUCIANO ARAUJO COORDENADOR TJ GR</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="COLUNAS DA GRADE LOGISTICO COM PROBLEMAS PARA EXCLUIR">COLUNAS DA GRADE LOGISTICO COM PROBLEMAS PARA EXCLUIR</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Em atendimento">Em atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="desbloqueado">desbloqueado</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Análise">Análise</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="-">-</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="12/12/2022 15:58 (America/Sao_Paulo)">12/12/2022 15:58 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="22/12/2022 12:51 (America/Sao_Paulo)">22/12/2022 12:51 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                </tr>
+
+                <tr id="TicketID_52244" class="MasterAction">
+
+
+                    <td class="Checkbox NonTextContent">
+                        <input class="Checkbox" type="checkbox" name="TicketID" title="Selecionar esse chamado" value="52244"  autocomplete="off" />
+                    </td>
+
+
+
+
+                    <td class="Flags" title="3 Normal">
+                        <div class="Flag Small" title="3 Normal">
+                            <span class="PriorityID-3" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>3 Normal</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+                    <td class="UnreadArticles" title="Artigo(s) Não Lido(s) Disponível(is)">
+                        <div class="UnreadArticles Small" title="Artigo(s) Não Lido(s) Disponível(is)">
+                            <span class="UnreadArticles Ordinary" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>Artigo(s) Não Lido(s) Disponível(is)</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+
+                    <td>
+                        <a href="/otrs/index.pl?Action=AgentTicketZoom;TicketID=52244" title="FALHA AO BAIXAR ALERTAS DE 60 DIAS" class="MasterActionLink">2022112850000417</a>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="86 d 15 h ">86 d 15 h </div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="LUCIANO ARAUJO COORDENADOR TJ GR">LUCIANO ARAUJO COORDENADOR TJ GR</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="FALHA AO BAIXAR ALERTAS DE 60 DIAS">FALHA AO BAIXAR ALERTAS DE 60 DIAS</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Em atendimento">Em atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="bloqueado">bloqueado</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Análise">Análise</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="-">-</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="28/11/2022 16:50 (America/Sao_Paulo)">28/11/2022 16:50 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="05/02/2023 10:24 (America/Sao_Paulo)">05/02/2023 10:24 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                </tr>
+
+                <tr id="TicketID_46021" class="MasterAction">
+
+
+                    <td class="Checkbox NonTextContent">
+                        <input class="Checkbox" type="checkbox" name="TicketID" title="Selecionar esse chamado" value="46021"  autocomplete="off" />
+                    </td>
+
+
+
+
+                    <td class="Flags" title="3 Normal">
+                        <div class="Flag Small" title="3 Normal">
+                            <span class="PriorityID-3" style="">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <em>3 Normal</em>
+                            </span>
+                        </div>
+                    </td>
+
+
+
+
+                    <td class="" title="">
+                    </td>
+
+
+
+
+
+                    <td>
+                        <a href="/otrs/index.pl?Action=AgentTicketZoom;TicketID=46021" title="Rota não roteirizada na SM" class="MasterActionLink">2022090250000676</a>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="173 d 20 h ">173 d 20 h </div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Felipe Mello">Felipe Mello</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Rota não roteirizada na SM">Rota não roteirizada na SM</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Em atendimento">Em atendimento</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="desbloqueado">desbloqueado</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="Análise">Análise</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="[056] - TJ">[056] - TJ</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="02/09/2022 10:23 (America/Sao_Paulo)">02/09/2022 10:23 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                    <td>
+                        <div title="02/09/2022 10:49 (America/Sao_Paulo)">02/09/2022 10:49 (America/Sao_Paulo)</div>
+                    </td>
+
+
+
+
+                </tr>
+
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+
+<div id="Footer" class="ARIARoleContentinfo">
+
+    <a href="https://otrscommunityedition.com/" target="_blank"
+        title="((OTRS)) Community Edition 6.0.38">
+        Powered by ((OTRS)) Community Edition
+    </a>
+    <br>
+
+    <a href="https://www.centuran.com/" target="_blank">
+        <img src="/otrs-web/skins/Agent/default/img/logo-centuran.png"
+            alt="Centuran Consulting" title="Centuran Consulting" />
+    </a>
+
+</div>
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+    "use strict";
+
+    var CKEDITOR_BASEPATH = "/otrs-web/js/thirdparty/ckeditor-4.17.1/";
+//]]></script>
+<script type="text/javascript" src="/otrs-web/js/js-cache/CommonJS_05ffb054e8dc653f6f4c17d6f7b68933.js"></script>
+<script type="text/javascript" src="/otrs-web/js/js-cache/TranslationJS_pt_BR_c784882dd888536e028272822a869739.js"></script>
+<script type="text/javascript" src="/otrs-web/js/js-cache/TemplateJS_2b49bbea2c08dfd3f4a0d1dcd7e11fb1.js"></script>
+
+<script type="text/javascript" src="/otrs-web/js/js-cache/ModuleJS_a497803e176c18bf5789efba26b5865e.js"></script>
+
+<script type="text/javascript">//<![CDATA[
+"use strict";
+
+Core.Init.ExecuteInit('JS_LOADED');
+
+Core.App.Ready(function () {
+
+    Core.Init.ExecuteInit('DOCUMENT_READY');
+
+    Core.Config.AddConfig({"Action":"AgentTicketSearch","ActionRowTickets":{"46021":"[{\"ID\":\"Lock\",\"HTML\":\"<li id=\\\"Lock\\\"><a href=\\\"#\\\" title=\\\"Bloquear para trabalhar no chamado\\\">Bloquear</a></li>\",\"Target\":\"\",\"Description\":\"Lock it to work on it\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketLock;Subaction=Lock;TicketID=46021;ChallengeToken=0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe;\"},{\"ID\":\"Zoom\",\"HTML\":\"<li id=\\\"Zoom\\\"><a href=\\\"#\\\" title=\\\"Examinar em detalhes o conteúdo de um chamado!\\\">Detalhes</a></li>\",\"Target\":\"\",\"Description\":\"Look into a ticket!\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketZoom;TicketID=46021\"},{\"ID\":\"History\",\"HTML\":\"<li id=\\\"History\\\"><a href=\\\"#\\\" title=\\\"Mostrar histórico do chamado\\\">Histórico</a></li>\",\"Target\":\"\",\"Description\":\"Show the ticket history\",\"PopupType\":\"TicketHistory\",\"Link\":\"/otrs/index.pl?Action=AgentTicketHistory;TicketID=46021\"},{\"ID\":\"Priority\",\"HTML\":\"<li id=\\\"Priority\\\"><a href=\\\"#\\\" title=\\\"Alterar a Prioridade Para Este Chamado\\\">Prioridade</a></li>\",\"Target\":\"\",\"Description\":\"Change the priority for this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketPriority;TicketID=46021\"},{\"ID\":\"Note\",\"HTML\":\"<li id=\\\"Note\\\"><a href=\\\"#\\\" title=\\\"Adicionar uma nota a este chamado\\\">Nota</a></li>\",\"Target\":\"\",\"Description\":\"Add a note to this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketNote;TicketID=46021\"},{\"ID\":\"Close\",\"HTML\":\"<li id=\\\"Close\\\"><a href=\\\"#\\\" title=\\\"Fechar este Chamado\\\">Fechar</a></li>\",\"Target\":\"\",\"Description\":\"Close this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketClose;TicketID=46021\"},{\"ID\":\"Move\",\"HTML\":\"<li class=\\\"\\\"> <form title=\\\"Mover Chamado Para Uma Fila Diferente\\\" action=\\\"/otrs/index.pl\\\" method=\\\"post\\\"><input type=\\\"hidden\\\" name=\\\"ChallengeToken\\\" value=\\\"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe\\\"/> <input type=\\\"hidden\\\" name=\\\"Action\\\" value=\\\"AgentTicketMove\\\"/> <input type=\\\"hidden\\\" name=\\\"QueueID\\\" value=\\\"13\\\"/> <input type=\\\"hidden\\\" name=\\\"TicketID\\\" value=\\\"46021\\\"/> <label for=\\\"DestQueueID\\\" class=\\\"InvisibleText\\\">Alterar fila:</label> <select name=\\\"DestQueueID\\\" id=\\\"DestQueueID\\\" class=\\\"Modernize\\\" data-tree=\\\"true\\\" ><option value=\\\"0\\\">- Mover -</option><option value=\\\"13\\\">Análise</option><option value=\\\"6\\\">Atendimento</option><option value=\\\"14\\\">Infraestrutura</option><option value=\\\"9\\\">Projetos</option></select> </form></li>\",\"Target\":\"\",\"Description\":\"Change queue!\",\"PopupType\":null,\"Link\":\"/otrs/index.pl?Action=AgentTicketMove;TicketID=46021;\"}]","52244":"[{\"ID\":\"Zoom\",\"HTML\":\"<li id=\\\"Zoom\\\"><a href=\\\"#\\\" title=\\\"Examinar em detalhes o conteúdo de um chamado!\\\">Detalhes</a></li>\",\"Target\":\"\",\"Description\":\"Look into a ticket!\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketZoom;TicketID=52244\"},{\"ID\":\"History\",\"HTML\":\"<li id=\\\"History\\\"><a href=\\\"#\\\" title=\\\"Mostrar histórico do chamado\\\">Histórico</a></li>\",\"Target\":\"\",\"Description\":\"Show the ticket history\",\"PopupType\":\"TicketHistory\",\"Link\":\"/otrs/index.pl?Action=AgentTicketHistory;TicketID=52244\"},{\"ID\":\"Note\",\"HTML\":\"<li id=\\\"Note\\\"><a href=\\\"#\\\" title=\\\"Adicionar uma nota a este chamado\\\">Nota</a></li>\",\"Target\":\"\",\"Description\":\"Add a note to this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketNote;TicketID=52244\"},{\"ID\":\"Move\",\"HTML\":\"<li class=\\\"\\\"> <form title=\\\"Mover Chamado Para Uma Fila Diferente\\\" action=\\\"/otrs/index.pl\\\" method=\\\"post\\\"><input type=\\\"hidden\\\" name=\\\"ChallengeToken\\\" value=\\\"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe\\\"/> <input type=\\\"hidden\\\" name=\\\"Action\\\" value=\\\"AgentTicketMove\\\"/> <input type=\\\"hidden\\\" name=\\\"QueueID\\\" value=\\\"13\\\"/> <input type=\\\"hidden\\\" name=\\\"TicketID\\\" value=\\\"52244\\\"/> <label for=\\\"DestQueueID\\\" class=\\\"InvisibleText\\\">Alterar fila:</label> <select name=\\\"DestQueueID\\\" id=\\\"DestQueueID\\\" class=\\\"Modernize\\\" data-tree=\\\"true\\\" ><option value=\\\"0\\\">- Mover -</option><option value=\\\"13\\\">Análise</option><option value=\\\"6\\\">Atendimento</option><option value=\\\"14\\\">Infraestrutura</option><option value=\\\"9\\\">Projetos</option></select> </form></li>\",\"Target\":\"\",\"Description\":\"Change queue!\",\"PopupType\":null,\"Link\":\"/otrs/index.pl?Action=AgentTicketMove;TicketID=52244;\"}]","52778":"[{\"ID\":\"Lock\",\"HTML\":\"<li id=\\\"Lock\\\"><a href=\\\"#\\\" title=\\\"Bloquear para trabalhar no chamado\\\">Bloquear</a></li>\",\"Target\":\"\",\"Description\":\"Lock it to work on it\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketLock;Subaction=Lock;TicketID=52778;ChallengeToken=0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe;\"},{\"ID\":\"Zoom\",\"HTML\":\"<li id=\\\"Zoom\\\"><a href=\\\"#\\\" title=\\\"Examinar em detalhes o conteúdo de um chamado!\\\">Detalhes</a></li>\",\"Target\":\"\",\"Description\":\"Look into a ticket!\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketZoom;TicketID=52778\"},{\"ID\":\"History\",\"HTML\":\"<li id=\\\"History\\\"><a href=\\\"#\\\" title=\\\"Mostrar histórico do chamado\\\">Histórico</a></li>\",\"Target\":\"\",\"Description\":\"Show the ticket history\",\"PopupType\":\"TicketHistory\",\"Link\":\"/otrs/index.pl?Action=AgentTicketHistory;TicketID=52778\"},{\"ID\":\"Priority\",\"HTML\":\"<li id=\\\"Priority\\\"><a href=\\\"#\\\" title=\\\"Alterar a Prioridade Para Este Chamado\\\">Prioridade</a></li>\",\"Target\":\"\",\"Description\":\"Change the priority for this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketPriority;TicketID=52778\"},{\"ID\":\"Note\",\"HTML\":\"<li id=\\\"Note\\\"><a href=\\\"#\\\" title=\\\"Adicionar uma nota a este chamado\\\">Nota</a></li>\",\"Target\":\"\",\"Description\":\"Add a note to this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketNote;TicketID=52778\"},{\"ID\":\"Close\",\"HTML\":\"<li id=\\\"Close\\\"><a href=\\\"#\\\" title=\\\"Fechar este Chamado\\\">Fechar</a></li>\",\"Target\":\"\",\"Description\":\"Close this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketClose;TicketID=52778\"},{\"ID\":\"Move\",\"HTML\":\"<li class=\\\"\\\"> <form title=\\\"Mover Chamado Para Uma Fila Diferente\\\" action=\\\"/otrs/index.pl\\\" method=\\\"post\\\"><input type=\\\"hidden\\\" name=\\\"ChallengeToken\\\" value=\\\"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe\\\"/> <input type=\\\"hidden\\\" name=\\\"Action\\\" value=\\\"AgentTicketMove\\\"/> <input type=\\\"hidden\\\" name=\\\"QueueID\\\" value=\\\"13\\\"/> <input type=\\\"hidden\\\" name=\\\"TicketID\\\" value=\\\"52778\\\"/> <label for=\\\"DestQueueID\\\" class=\\\"InvisibleText\\\">Alterar fila:</label> <select name=\\\"DestQueueID\\\" id=\\\"DestQueueID\\\" class=\\\"Modernize\\\" data-tree=\\\"true\\\" ><option value=\\\"0\\\">- Mover -</option><option value=\\\"13\\\">Análise</option><option value=\\\"6\\\">Atendimento</option><option value=\\\"14\\\">Infraestrutura</option><option value=\\\"9\\\">Projetos</option></select> </form></li>\",\"Target\":\"\",\"Description\":\"Change queue!\",\"PopupType\":null,\"Link\":\"/otrs/index.pl?Action=AgentTicketMove;TicketID=52778;\"}]","54138":"[{\"ID\":\"Lock\",\"HTML\":\"<li id=\\\"Lock\\\"><a href=\\\"#\\\" title=\\\"Bloquear para trabalhar no chamado\\\">Bloquear</a></li>\",\"Target\":\"\",\"Description\":\"Lock it to work on it\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketLock;Subaction=Lock;TicketID=54138;ChallengeToken=0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe;\"},{\"ID\":\"Zoom\",\"HTML\":\"<li id=\\\"Zoom\\\"><a href=\\\"#\\\" title=\\\"Examinar em detalhes o conteúdo de um chamado!\\\">Detalhes</a></li>\",\"Target\":\"\",\"Description\":\"Look into a ticket!\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketZoom;TicketID=54138\"},{\"ID\":\"History\",\"HTML\":\"<li id=\\\"History\\\"><a href=\\\"#\\\" title=\\\"Mostrar histórico do chamado\\\">Histórico</a></li>\",\"Target\":\"\",\"Description\":\"Show the ticket history\",\"PopupType\":\"TicketHistory\",\"Link\":\"/otrs/index.pl?Action=AgentTicketHistory;TicketID=54138\"},{\"ID\":\"Priority\",\"HTML\":\"<li id=\\\"Priority\\\"><a href=\\\"#\\\" title=\\\"Alterar a Prioridade Para Este Chamado\\\">Prioridade</a></li>\",\"Target\":\"\",\"Description\":\"Change the priority for this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketPriority;TicketID=54138\"},{\"ID\":\"Note\",\"HTML\":\"<li id=\\\"Note\\\"><a href=\\\"#\\\" title=\\\"Adicionar uma nota a este chamado\\\">Nota</a></li>\",\"Target\":\"\",\"Description\":\"Add a note to this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketNote;TicketID=54138\"},{\"ID\":\"Close\",\"HTML\":\"<li id=\\\"Close\\\"><a href=\\\"#\\\" title=\\\"Fechar este Chamado\\\">Fechar</a></li>\",\"Target\":\"\",\"Description\":\"Close this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketClose;TicketID=54138\"},{\"ID\":\"Move\",\"HTML\":\"<li class=\\\"\\\"> <form title=\\\"Mover Chamado Para Uma Fila Diferente\\\" action=\\\"/otrs/index.pl\\\" method=\\\"post\\\"><input type=\\\"hidden\\\" name=\\\"ChallengeToken\\\" value=\\\"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe\\\"/> <input type=\\\"hidden\\\" name=\\\"Action\\\" value=\\\"AgentTicketMove\\\"/> <input type=\\\"hidden\\\" name=\\\"QueueID\\\" value=\\\"14\\\"/> <input type=\\\"hidden\\\" name=\\\"TicketID\\\" value=\\\"54138\\\"/> <label for=\\\"DestQueueID\\\" class=\\\"InvisibleText\\\">Alterar fila:</label> <select name=\\\"DestQueueID\\\" id=\\\"DestQueueID\\\" class=\\\"Modernize\\\" data-tree=\\\"true\\\" ><option value=\\\"0\\\">- Mover -</option><option value=\\\"13\\\">Análise</option><option value=\\\"6\\\">Atendimento</option><option value=\\\"14\\\">Infraestrutura</option><option value=\\\"9\\\">Projetos</option></select> </form></li>\",\"Target\":\"\",\"Description\":\"Change queue!\",\"PopupType\":null,\"Link\":\"/otrs/index.pl?Action=AgentTicketMove;TicketID=54138;\"}]","55218":"[{\"ID\":\"Lock\",\"HTML\":\"<li id=\\\"Lock\\\"><a href=\\\"#\\\" title=\\\"Bloquear para trabalhar no chamado\\\">Bloquear</a></li>\",\"Target\":\"\",\"Description\":\"Lock it to work on it\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketLock;Subaction=Lock;TicketID=55218;ChallengeToken=0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe;\"},{\"ID\":\"Zoom\",\"HTML\":\"<li id=\\\"Zoom\\\"><a href=\\\"#\\\" title=\\\"Examinar em detalhes o conteúdo de um chamado!\\\">Detalhes</a></li>\",\"Target\":\"\",\"Description\":\"Look into a ticket!\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketZoom;TicketID=55218\"},{\"ID\":\"History\",\"HTML\":\"<li id=\\\"History\\\"><a href=\\\"#\\\" title=\\\"Mostrar histórico do chamado\\\">Histórico</a></li>\",\"Target\":\"\",\"Description\":\"Show the ticket history\",\"PopupType\":\"TicketHistory\",\"Link\":\"/otrs/index.pl?Action=AgentTicketHistory;TicketID=55218\"},{\"ID\":\"Priority\",\"HTML\":\"<li id=\\\"Priority\\\"><a href=\\\"#\\\" title=\\\"Alterar a Prioridade Para Este Chamado\\\">Prioridade</a></li>\",\"Target\":\"\",\"Description\":\"Change the priority for this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketPriority;TicketID=55218\"},{\"ID\":\"Note\",\"HTML\":\"<li id=\\\"Note\\\"><a href=\\\"#\\\" title=\\\"Adicionar uma nota a este chamado\\\">Nota</a></li>\",\"Target\":\"\",\"Description\":\"Add a note to this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketNote;TicketID=55218\"},{\"ID\":\"Close\",\"HTML\":\"<li id=\\\"Close\\\"><a href=\\\"#\\\" title=\\\"Fechar este Chamado\\\">Fechar</a></li>\",\"Target\":\"\",\"Description\":\"Close this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketClose;TicketID=55218\"},{\"ID\":\"Move\",\"HTML\":\"<li class=\\\"\\\"> <form title=\\\"Mover Chamado Para Uma Fila Diferente\\\" action=\\\"/otrs/index.pl\\\" method=\\\"post\\\"><input type=\\\"hidden\\\" name=\\\"ChallengeToken\\\" value=\\\"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe\\\"/> <input type=\\\"hidden\\\" name=\\\"Action\\\" value=\\\"AgentTicketMove\\\"/> <input type=\\\"hidden\\\" name=\\\"QueueID\\\" value=\\\"13\\\"/> <input type=\\\"hidden\\\" name=\\\"TicketID\\\" value=\\\"55218\\\"/> <label for=\\\"DestQueueID\\\" class=\\\"InvisibleText\\\">Alterar fila:</label> <select name=\\\"DestQueueID\\\" id=\\\"DestQueueID\\\" class=\\\"Modernize\\\" data-tree=\\\"true\\\" ><option value=\\\"0\\\">- Mover -</option><option value=\\\"13\\\">Análise</option><option value=\\\"6\\\">Atendimento</option><option value=\\\"14\\\">Infraestrutura</option><option value=\\\"9\\\">Projetos</option></select> </form></li>\",\"Target\":\"\",\"Description\":\"Change queue!\",\"PopupType\":null,\"Link\":\"/otrs/index.pl?Action=AgentTicketMove;TicketID=55218;\"}]","55617":"[{\"ID\":\"Lock\",\"HTML\":\"<li id=\\\"Lock\\\"><a href=\\\"#\\\" title=\\\"Bloquear para trabalhar no chamado\\\">Bloquear</a></li>\",\"Target\":\"\",\"Description\":\"Lock it to work on it\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketLock;Subaction=Lock;TicketID=55617;ChallengeToken=0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe;\"},{\"ID\":\"Zoom\",\"HTML\":\"<li id=\\\"Zoom\\\"><a href=\\\"#\\\" title=\\\"Examinar em detalhes o conteúdo de um chamado!\\\">Detalhes</a></li>\",\"Target\":\"\",\"Description\":\"Look into a ticket!\",\"PopupType\":\"\",\"Link\":\"/otrs/index.pl?Action=AgentTicketZoom;TicketID=55617\"},{\"ID\":\"History\",\"HTML\":\"<li id=\\\"History\\\"><a href=\\\"#\\\" title=\\\"Mostrar histórico do chamado\\\">Histórico</a></li>\",\"Target\":\"\",\"Description\":\"Show the ticket history\",\"PopupType\":\"TicketHistory\",\"Link\":\"/otrs/index.pl?Action=AgentTicketHistory;TicketID=55617\"},{\"ID\":\"Priority\",\"HTML\":\"<li id=\\\"Priority\\\"><a href=\\\"#\\\" title=\\\"Alterar a Prioridade Para Este Chamado\\\">Prioridade</a></li>\",\"Target\":\"\",\"Description\":\"Change the priority for this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketPriority;TicketID=55617\"},{\"ID\":\"Note\",\"HTML\":\"<li id=\\\"Note\\\"><a href=\\\"#\\\" title=\\\"Adicionar uma nota a este chamado\\\">Nota</a></li>\",\"Target\":\"\",\"Description\":\"Add a note to this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketNote;TicketID=55617\"},{\"ID\":\"Close\",\"HTML\":\"<li id=\\\"Close\\\"><a href=\\\"#\\\" title=\\\"Fechar este Chamado\\\">Fechar</a></li>\",\"Target\":\"\",\"Description\":\"Close this ticket\",\"PopupType\":\"TicketAction\",\"Link\":\"/otrs/index.pl?Action=AgentTicketClose;TicketID=55617\"},{\"ID\":\"Move\",\"HTML\":\"<li class=\\\"\\\"> <form title=\\\"Mover Chamado Para Uma Fila Diferente\\\" action=\\\"/otrs/index.pl\\\" method=\\\"post\\\"><input type=\\\"hidden\\\" name=\\\"ChallengeToken\\\" value=\\\"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe\\\"/> <input type=\\\"hidden\\\" name=\\\"Action\\\" value=\\\"AgentTicketMove\\\"/> <input type=\\\"hidden\\\" name=\\\"QueueID\\\" value=\\\"6\\\"/> <input type=\\\"hidden\\\" name=\\\"TicketID\\\" value=\\\"55617\\\"/> <label for=\\\"DestQueueID\\\" class=\\\"InvisibleText\\\">Alterar fila:</label> <select name=\\\"DestQueueID\\\" id=\\\"DestQueueID\\\" class=\\\"Modernize\\\" data-tree=\\\"true\\\" ><option value=\\\"0\\\">- Mover -</option><option value=\\\"13\\\">Análise</option><option value=\\\"6\\\">Atendimento</option><option value=\\\"14\\\">Infraestrutura</option><option value=\\\"9\\\">Projetos</option></select> </form></li>\",\"Target\":\"\",\"Description\":\"Change queue!\",\"PopupType\":null,\"Link\":\"/otrs/index.pl?Action=AgentTicketMove;TicketID=55617;\"}]"},"Autocomplete":{"CustomerSearch":{"AutoCompleteActive":"1","ButtonText":"Procurar cliente","MaxResultsDisplayed":"20","MinQueryLength":"2","QueryDelay":"100"},"Default":{"AutoCompleteActive":"1","ButtonText":"Procurar","MaxResultsDisplayed":"20","MinQueryLength":"2","QueryDelay":"100"},"UserSearch":{"AutoCompleteActive":"1","ButtonText":"Procurar Atendente","MaxResultsDisplayed":"20","MinQueryLength":"2","QueryDelay":"100"}},"Baselink":"/otrs/index.pl?","CGIHandle":"/otrs/index.pl","ChallengeToken":"0RxofZ0XTURSTGnC1G4EltUucsK3ZgVe","CheckEmailAddresses":"1","CheckSearchStringsForStopWords":0,"ColumnAge":"Idade","ColumnChanged":"Alterado","ColumnCreated":"Criado","ColumnCustomerCompanyName":"Nome do Cliente","ColumnCustomerID":"ID do Cliente","ColumnCustomerName":"Nome do Usuário Cliente","ColumnCustomerUserID":"ID de usuário cliente","ColumnDynamicField_ITSMCriticality":"Criticality","ColumnDynamicField_ITSMDecisionDate":"Decision Date","ColumnDynamicField_ITSMDecisionResult":"Decision Result","ColumnDynamicField_ITSMDueDate":"Due Date","ColumnDynamicField_ITSMImpact":"Impact","ColumnDynamicField_ITSMRecoveryStartTime":"Recovery Start Time","ColumnDynamicField_ITSMRepairStartTime":"Repair Start Time","ColumnDynamicField_ITSMReviewRequired":"Review Required","ColumnDynamicField_ProcessManagementActivityID":"Atividade","ColumnDynamicField_ProcessManagementProcessID":"Processo","ColumnDynamicField_idredmine":"ID Redmine","ColumnEscalationResponseTime":"Prazo de Resposta Inicial","ColumnEscalationSolutionTime":"Prazo de Solução","ColumnEscalationTime":"Tempo de Serviço","ColumnEscalationUpdateTime":"Prazo de Atualização","ColumnLock":"Bloquear","ColumnOwner":"Proprietário","ColumnPendingTime":"Pendente até","ColumnPriority":"Prioridade","ColumnQueue":"Fila","ColumnResponsible":"Responsável","ColumnSLA":"SLA","ColumnSender":"Remetente","ColumnService":"Serviço","ColumnState":"Estado","ColumnSubject":"Assunto","ColumnTicketNumber":"Número Chamado","ColumnTitle":"Titulo","ColumnType":"Tipo","CustomerInfoSet":"1","CustomerPanelSessionName":"OTRSCustomerInterface","IncludeUnknownTicketCustomers":"0","InputFieldsActivated":"1","LinkPage":"Filter=;View=;SortBy=Age;OrderBy=Down;Profile=last-search;TakeLastSearch=1;Subaction=Search;","MenuDragDropEnabled":"1","NavbarOrderItems":"[\"nav-Dashboard\",\"nav-Customers\",\"nav-Calendar\",\"nav-Tickets\",\"nav-FAQ\",\"nav-search\"]","OTRSBusinessIsInstalled":0,"OpenMainMenuOnHover":"0","PendingStateIDs":["19","20","18"],"Profile":"last-search","Refresh":null,"RichTextSet":"1","SearchFrontend":"","SessionID":"84vZSxP0vRZjYEedbQHRS4MwQBjxhWtU","SessionIDCookie":"84vZSxP0vRZjYEedbQHRS4MwQBjxhWtU","SessionName":"OTRSAgentInterface","SessionUseCookie":"1","Subaction":"Search","UserLanguage":"pt_BR","VideoChatEnabled":null,"View":"Small","WebMaxFileUpload":"50000000","WebPath":"/otrs-web/"});
+
+
+    Core.Init.ExecuteInit('CONFIG_LOADED');
+    Core.Init.ExecuteInit('APP_GLOBAL_EARLY');
+    Core.Init.ExecuteInit('APP_GLOBAL');
+    Core.Init.ExecuteInit('APP_GLOBAL_LATE');
+
+});
+//]]></script>
+
+<script type="text/javascript">//<![CDATA[
+"use strict";
+Core.App.Ready(function () {
+    Core.Init.ExecuteInit('APP_MODULE_EARLY');
+
+
+
+    Core.Init.ExecuteInit('APP_MODULE');
+    Core.Init.ExecuteInit('APP_MODULE_LATE');
+});
+//]]></script>
+
+<script type="text/javascript">//<![CDATA[
+"use strict";
+Core.App.Ready(function () {
+    Core.Init.ExecuteInit('FINISH');
+    Core.App.UnblockEvents();
+});
+//]]></script>
+
+<div id="AjaxErrorDialog">
+    <div id="AjaxErrorDialogInner">
+        <div class="NoConnection" style="display:none;">
+            <span class="Icon">
+                <i class="fa fa-plug"></i>
+            </span>
+            <p>
+                ((OTRS)) Community Edition detectou possíveis problemas de rede. Você pode tentar atualizar a página manualmente ou esperar até que seu navegador tenha reestabelecido a conexão por si só.
+            </p>
+        </div>
+        <div class="ConnectionReEstablished" style="display:none;">
+            <span class="Icon">
+                <i class="fa fa-check"></i>
+            </span>
+            <p>
+                A conexão foi restabelecida após uma perda temporária de conexão. Por causa disso, elementos nesta página podem ter parado de funcionar corretamente. Para ser capaz de novamente usar todos elementos corretamente, é altamente recomendado recarregar esta página.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="ResponsiveFooter">
+    <div class="Visible-ScreenXL"></div>
+    <div class="Visible-ScreenL"></div>
+    <div class="Visible-ScreenM"></div>
+    <div class="Visible-ScreenS"></div>
+    <div class="Visible-ScreenXS"></div>
+</div>
+
+    </div><!-- end AppWrapper -->
+
+<script>
+(function () {
+
+if (!window.__use_new_agent_ui)
+    return;
+
+new Vue({
+    el: '#vue-app',
+    vuetify: new Vuetify({
+        theme: { disable: true }
+    }),
+    components: {
+        'colorpicker':    httpVueLoader('/otrs-web/js/centuran/colorpicker.vue'),
+        'datetimepicker': httpVueLoader('/otrs-web/js/centuran/datetimepicker.vue'),
+        'toggleswitch':   httpVueLoader('/otrs-web/js/centuran/toggleswitch.vue')
+    },
+    data() {
+        return {
+            document: document,
+            console: console,
+            jQuery: window.jQuery
+        };
+    }
+});
+
+// FIXME: This is an ugly-ish workaround for an issue when unset select fields
+// suddenly have the first option pre-selected after Vue initialization above
+// (i.e. $('#some-select').val() returns null just before Vue initialization,
+// and some value right after). Resetting the inner HTML of the element seems
+// to fix this.
+jQuery('select').each(function () {
+    jQuery(this).html(jQuery(this).html());
+});
+
+new MutationObserver(function (mutations, observer) {
+    var newDialogs =
+        document.querySelectorAll('body > .Dialog:not(.__vue_processed), ' +
+            'body .LayoutPopup:not(.__vue_processed)');
+
+    newDialogs.forEach(function (dialog) {
+        var fields = dialog.querySelectorAll('.Field.__vue_datetimepicker');
+
+        fields.forEach(function (field) {
+            new Vue({
+                el: field,
+                vuetify: new Vuetify({ theme: { disable: true } }),
+                components: {
+                    'datetimepicker': httpVueLoader('/otrs-web/js/centuran/datetimepicker.vue')
+                }
+            });
+
+            dialog.classList.add('__vue_processed');
+        });
+    });
+}).observe(document.body,
+    { attributes: false, childList: true, subtree: false });
+
+})();
+
+// Add custom class to action list items that should be followed by free space
+// (i.e. those which are the last in a group)
+$(function () {
+    $('.ActionRow .Actions li, .ItemActions .Actions li').each(function () {
+        if ($(this).next('li').find('> a, > span.ClusterLink').length == 0)
+            this.classList.add('cmt-item-action-link-last');
+    });
+});
+</script>
+
+</body>
+</html>
