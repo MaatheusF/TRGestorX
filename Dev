@@ -1,0 +1,10 @@
+# Tela de Chamados
+    # Chamados
+        # Criar um Select no cabeçalho da pagina, onde será possível selecionar o cliente para filtrar os chamados
+        # Criar um Botão para aplicar o filtro
+        # Colocar a tabela dentro de Iframe
+      
+    #
+
+#Ideias futuras
+# Criar uma coluna, para alendar prioridade nos chamados
